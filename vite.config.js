@@ -12,6 +12,15 @@ export default defineConfig({
                 changeOrigin: true,
                 rewrite: () => '/v1/questions',
             },
+            '/api/auth/login': {
+                target: 'https://question-submission-auth.onrender.com',
+                changeOrigin: true,
+            },
+            '/api/auth/change-password': {
+                target: 'https://question-submission-auth.onrender.com',
+                changeOrigin: true,
+                rewrite: () => '/api/change-password',
+            },
         },
     },
 })

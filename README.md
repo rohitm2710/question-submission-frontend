@@ -1,50 +1,131 @@
-# React + Vite
+# KGEC IT Question Submission Portal
 
-## Question API
+A React and Vite frontend for authenticated multiple-choice question submission. Users sign in, optionally change their password, and submit questions with a difficulty level, four options, and the correct answer.
 
-Open the `.env` file in this folder and set the POST endpoint used by the form. The variable name must be exactly `VITE_API_URL`:
+## Features
 
-```env
-VITE_API_URL=/api/questions
+- Email and password authentication
+- Password-change workflow
+- Question statement with a 200-character limit
+- Easy, Medium, and Hard difficulty selection
+- Four answer options with a lowercase correct-answer value
+- JSON POST requests to the question and authentication APIs
+- Vite and Vercel rewrites to keep browser requests same-origin
+
+## Technology
+
+- React 19
+- Vite
+- Tailwind CSS
+- Vercel deployment configuration
+
+## Local Development
+
+```bash
+npm install
+npm run dev
 ```
 
-The frontend calls `/api/questions`. Vite forwards that route to the Render backend during local development, and `vercel.json` forwards it after deployment. This avoids browser CORS errors.
+The development server is normally available at `http://localhost:5173`.
 
-If your backend uses a different port or route, update the `target` and `rewrite` values in `vite.config.js`. For example, if your backend route is `http://localhost:5000/questions`, use:
+Run the checks with:
 
-```env
-VITE_API_URL=http://localhost:5000/questions
+```bash
+npm run lint
+npm run build
 ```
 
-Use `http://localhost:PORT/ROUTE` for a local backend. Do not write `https://localhost/3000`; the port comes after a colon: `localhost:3000`. Restart `npm run dev` after changing `.env`.
+## API Configuration
 
-When the user submits the form, it sends this JSON body:
+The frontend uses same-origin paths. Vite proxies them during local development, and `vercel.json` forwards them after deployment.
+
+| Frontend path | Production destination |
+| --- | --- |
+| `/api/auth/login` | `https://question-submission-auth.onrender.com/api/login` |
+| `/api/auth/change-password` | `https://question-submission-auth.onrender.com/api/change-password` |
+| `/api/questions` | `https://question-submission-backend.onrender.com/v1/questions` |
+
+No database credentials or private API keys belong in this frontend repository. `.env` is ignored by Git.
+
+## Authentication API
+
+### Login
+
+The login form sends `POST /api/login` with:
 
 ```json
 {
-	"statement": "What is 2 + 2?",
-	"difficulty": 0,
-	"option_a": "3",
-	"option_b": "4",
-	"option_c": "5",
-	"option_d": "6",
-	"answer": "b"
+  "email": "user@example.com",
+  "password": "mypassword"
 }
 ```
 
-The UI labels difficulty `0` as Easy, `1` as Medium, and `2` as Hard. The dropdown stores the selected option letter in lowercase, such as `a`, `b`, `c`, or `d`, in `answer`. If `VITE_API_URL` is not set, the form posts to `/api/questions` on the current host.
+The frontend treats login as successful only when both `userExists` and `passwordCorrect` are `true`:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+```json
+{
+  "userExists": true,
+  "passwordCorrect": true,
+  "message": "Password is correct"
+}
+```
 
-Currently, two official plugins are available:
+The API may return HTTP 200 for invalid credentials. The response flags, not only the HTTP status, determine whether access is granted.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Change Password
 
-## React Compiler
+The change-password form sends `POST /api/change-password` with:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```json
+{
+  "email": "user@example.com",
+  "currentPassword": "old-password",
+  "newPassword": "new-password"
+}
+```
 
-## Expanding the ESLint configuration
+The frontend treats the operation as successful only when `passwordChanged` is `true`:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```json
+{
+  "passwordChanged": true,
+  "message": "Password changed successfully"
+}
+```
+
+## Question API
+
+The question form sends `POST /v1/questions` through the `/api/questions` rewrite:
+
+```json
+{
+  "difficulty": 0,
+  "statement": "What is 2 + 2?",
+  "option_a": "3",
+  "option_b": "4",
+  "option_c": "5",
+  "option_d": "6",
+  "answer": "b"
+}
+```
+
+Difficulty values are `0` for Easy, `1` for Medium, and `2` for Hard. The `answer` value is lowercase: `a`, `b`, `c`, or `d`.
+
+## Vercel Deployment
+
+1. Import the GitHub repository into Vercel.
+2. Set the root directory to the repository root.
+3. Use the Vite preset.
+4. Set the build command to `npm run build`.
+5. Set the output directory to `dist`.
+6. Set the install command to `npm install`.
+7. Deploy the project.
+
+The included `vercel.json` forwards the three frontend API paths to their Render services. Redeploy after changing rewrite rules.
+
+## Security
+
+- Never commit `.env`, database URLs, passwords, or private tokens.
+- The API should hash passwords with bcrypt or Argon2 before production use.
+- Validate and rate-limit authentication requests on the backend.
+- Restrict CORS to trusted frontend origins when direct API access is enabled.
