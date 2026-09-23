@@ -69,7 +69,7 @@ const Question = () => {
   };
 
   return (
-    <main className="min-h-screen bg-lime-300 px-4 py-8 text-stone-600 sm:px-8 lg:px-12">
+    <main className="min-h-screen bg-sky-100 px-4 py-8 text-slate-800 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-5xl">
         <h1 className="max-w-3xl text-5xl leading-tight sm:text-6xl lg:text-7xl">
           KGEC IT MCQ Question
@@ -77,7 +77,7 @@ const Question = () => {
           Submission Portal
         </h1>
 
-        <form onSubmit={handleSubmit} className="mt-12 rounded-[clamp(2rem,5vw,3.5rem)] bg-orange-300 p-7 sm:p-8 lg:p-10">
+        <form onSubmit={handleSubmit} className="mt-12 rounded-[clamp(2rem,5vw,3.5rem)] bg-amber-50 p-7 sm:p-8 lg:p-10">
           <label htmlFor="question" className="mb-3 block text-xl sm:text-2xl">
             Question statement (Max 200 characters)
           </label>
@@ -89,7 +89,7 @@ const Question = () => {
             maxLength={200}
             required
             rows={5}
-            className="w-full resize-none rounded-3xl bg-indigo-200 p-5 text-lg text-stone-700 outline-none placeholder:text-stone-500 focus:ring-4 focus:ring-indigo-300"
+            className="w-full resize-none rounded-3xl bg-sky-50 p-5 text-lg text-slate-800 outline-none placeholder:text-slate-500 focus:ring-4 focus:ring-sky-300"
           />
 
           <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -98,7 +98,7 @@ const Question = () => {
               type="button"
               aria-pressed={formData.difficulty === 0}
               onClick={() => setFormData((current) => ({ ...current, difficulty: 0 }))}
-              className={`rounded-xl border-4 border-green-700 px-7 py-2 text-lg text-green-700 ${formData.difficulty === 0 ? 'bg-green-200' : 'bg-transparent'}`}
+              className={`rounded-xl border-4 border-emerald-700 px-7 py-2 text-lg text-emerald-800 ${formData.difficulty === 0 ? 'bg-emerald-100' : 'bg-transparent'}`}
             >
               Easy
             </button>
@@ -106,7 +106,7 @@ const Question = () => {
               type="button"
               aria-pressed={formData.difficulty === 1}
               onClick={() => setFormData((current) => ({ ...current, difficulty: 1 }))}
-              className={`rounded-xl border-4 border-yellow-500 px-7 py-2 text-lg text-yellow-800 ${formData.difficulty === 1 ? 'bg-yellow-200' : 'bg-transparent'}`}
+              className={`rounded-xl border-4 border-amber-500 px-7 py-2 text-lg text-amber-800 ${formData.difficulty === 1 ? 'bg-amber-100' : 'bg-transparent'}`}
             >
               Medium
             </button>
@@ -114,7 +114,7 @@ const Question = () => {
               type="button"
               aria-pressed={formData.difficulty === 2}
               onClick={() => setFormData((current) => ({ ...current, difficulty: 2 }))}
-              className={`rounded-xl border-4 border-red-700 px-7 py-2 text-lg text-red-700 ${formData.difficulty === 2 ? 'bg-red-200' : 'bg-transparent'}`}
+              className={`rounded-xl border-4 border-rose-700 px-7 py-2 text-lg text-rose-800 ${formData.difficulty === 2 ? 'bg-rose-100' : 'bg-transparent'}`}
             >
               Hard
             </button>
@@ -133,7 +133,7 @@ const Question = () => {
                 required
                 placeholder={`Option ${letter}`}
                 aria-label={`Option ${letter}`}
-                className="w-full rounded-3xl bg-green-600 px-5 py-5 text-lg text-white outline-none placeholder:text-green-100 focus:ring-4 focus:ring-green-300"
+                className="w-full rounded-3xl bg-teal-700 px-5 py-5 text-lg text-white outline-none placeholder:text-teal-100 focus:ring-4 focus:ring-teal-300"
               />
             ))}
           </div>
@@ -146,7 +146,7 @@ const Question = () => {
               id="correct-answer"
               value={formData.correctAnswer}
               onChange={(event) => setFormData((current) => ({ ...current, correctAnswer: event.target.value }))}
-              className="rounded-2xl bg-indigo-200 px-5 py-3 text-lg text-stone-700 outline-none focus:ring-4 focus:ring-indigo-300"
+              className="rounded-2xl bg-sky-50 px-5 py-3 text-lg text-slate-800 outline-none focus:ring-4 focus:ring-sky-300"
             >
               {Object.keys(formData.options).map((letter) => (
                 <option key={letter} value={letter.toLowerCase()}>{letter}</option>
@@ -157,13 +157,13 @@ const Question = () => {
           <button
             type="submit"
             disabled={submitState.status === 'submitting'}
-            className="mt-8 rounded-2xl bg-stone-700 px-7 py-3 text-lg text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-8 rounded-2xl bg-slate-800 px-7 py-3 text-lg text-white transition hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitState.status === 'submitting' ? 'Submitting...' : 'Submit question'}
           </button>
 
           {submitState.message && (
-            <p role="status" className={`mt-4 text-lg ${submitState.status === 'error' ? 'text-red-800' : 'text-green-900'}`}>
+            <p role="status" className={`mt-4 text-lg ${submitState.status === 'error' ? 'text-rose-800' : 'text-emerald-800'}`}>
               {submitState.message}
             </p>
           )}
