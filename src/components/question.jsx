@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 const initialFormData = {
   statement: '',
+  subject: '',
   difficulty: 0,
   options: {
     A: '',
@@ -12,7 +13,7 @@ const initialFormData = {
   correctAnswer: 'a',
 };
 
-const Question = () => {
+const Question = ({ onLogout }) => {
   const [formData, setFormData] = useState(initialFormData);
   const [submitState, setSubmitState] = useState({ status: 'idle', message: '' });
 
@@ -33,6 +34,7 @@ const Question = () => {
 
     try {
       const requestBody = {
+        subject: formData.subject,
         statement: formData.statement,
         difficulty: formData.difficulty,
         option_a: formData.options.A,
@@ -71,6 +73,15 @@ const Question = () => {
   return (
     <main className="min-h-screen bg-sky-100 px-4 py-8 text-slate-800 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-5xl">
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={onLogout}
+            className="rounded-xl border-2 border-slate-700 px-5 py-2 text-base font-semibold text-slate-700 transition hover:bg-slate-800 hover:text-white"
+          >
+            Log out
+          </button>
+        </div>
         <h1 className="max-w-3xl text-5xl leading-tight sm:text-6xl lg:text-7xl">
           KGEC IT MCQ Question
           <br />
@@ -91,6 +102,25 @@ const Question = () => {
             rows={5}
             className="w-full resize-none rounded-3xl border-2 border-slate-200 bg-white p-5 text-lg text-slate-800 outline-none placeholder:text-slate-500 focus:border-sky-500 focus:ring-4 focus:ring-sky-200"
           />
+
+          <div className="mt-7">
+            <label htmlFor="subject" className="mb-3 block text-xl sm:text-2xl">
+              Subject
+            </label>
+            <select
+              id="subject"
+              name="subject"
+              required
+              value={formData.subject}
+              onChange={(event) => setFormData((current) => ({ ...current, subject: event.target.value }))}
+              className="w-full rounded-2xl border-2 border-slate-200 bg-white px-5 py-4 text-lg text-slate-800 outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-200"
+            >
+              <option value="" disabled>Select a subject</option>
+              <option value="Shell Scripting">Shell Scripting</option>
+              <option value="Python">Python</option>
+              <option value="DSA">DSA</option>
+            </select>
+          </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <span className="sr-only">Choose difficulty</span>

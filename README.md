@@ -99,6 +99,7 @@ The question form sends `POST /v1/questions` through the `/api/questions` rewrit
 
 ```json
 {
+  "subject": "Python",
   "difficulty": 0,
   "statement": "What is 2 + 2?",
   "option_a": "3",
@@ -109,7 +110,7 @@ The question form sends `POST /v1/questions` through the `/api/questions` rewrit
 }
 ```
 
-Difficulty values are `0` for Easy, `1` for Medium, and `2` for Hard. The `answer` value is lowercase: `a`, `b`, `c`, or `d`.
+The `subject` value is one of `Shell Scripting`, `Python`, or `DSA`. Difficulty values are `0` for Easy, `1` for Medium, and `2` for Hard. The `answer` value is lowercase: `a`, `b`, `c`, or `d`.
 
 ## Vercel Deployment
 

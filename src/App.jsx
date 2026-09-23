@@ -11,7 +11,14 @@ const App = () => {
   }
 
   if (page === 'questions') {
-    return <Question />;
+    return (
+      <Question
+        onLogout={() => {
+          localStorage.removeItem('authToken');
+          setPage('login');
+        }}
+      />
+    );
   }
 
   return (
