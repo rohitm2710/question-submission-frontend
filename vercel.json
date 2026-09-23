@@ -1,0 +1,6 @@
+{
+    "rewrites": [{
+        "source": "/api/questions",
+        "destination": "https://question-submission-backend.onrender.com/v1/questions"
+    }]
+}
