@@ -89,7 +89,7 @@ const Question = () => {
             maxLength={200}
             required
             rows={5}
-            className="w-full resize-none rounded-3xl bg-sky-50 p-5 text-lg text-slate-800 outline-none placeholder:text-slate-500 focus:ring-4 focus:ring-sky-300"
+            className="w-full resize-none rounded-3xl border-2 border-slate-200 bg-white p-5 text-lg text-slate-800 outline-none placeholder:text-slate-500 focus:border-sky-500 focus:ring-4 focus:ring-sky-200"
           />
 
           <div className="mt-6 flex flex-wrap items-center gap-4">
