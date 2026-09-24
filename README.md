@@ -41,8 +41,8 @@ The frontend uses same-origin paths. Vite proxies them during local development,
 
 | Frontend path | Production destination |
 | --- | --- |
-| `/api/auth/login` | `https://question-submission-auth.onrender.com/api/login` |
-| `/api/auth/change-password` | `https://question-submission-auth.onrender.com/api/change-password` |
+| `/api/auth/login` | `https://question-submission-auth-lftb1zeg7-rohit-s-team6.vercel.app/api/login` |
+| `/api/auth/change-password` | `https://question-submission-auth-lftb1zeg7-rohit-s-team6.vercel.app/api/change-password` |
 | `/api/questions` | `https://question-submission-backend.onrender.com/v1/questions` |
 
 No database credentials or private API keys belong in this frontend repository. `.env` is ignored by Git.

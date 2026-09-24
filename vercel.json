@@ -5,11 +5,11 @@
         },
         {
             "source": "/api/auth/login",
-            "destination": "https://question-submission-auth.onrender.com/api/login"
+            "destination": "https://question-submission-auth-lftb1zeg7-rohit-s-team6.vercel.app/api/login"
         },
         {
             "source": "/api/auth/change-password",
-            "destination": "https://question-submission-auth.onrender.com/api/change-password"
+            "destination": "https://question-submission-auth-lftb1zeg7-rohit-s-team6.vercel.app/api/change-password"
         }
     ]
 }
