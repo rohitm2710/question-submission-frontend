@@ -17,7 +17,12 @@ const Login = ({ onLogin, onChangePassword }) => {
 
       const responseBody = await response.json().catch(() => ({}));
       if (!response.ok) {
-        throw new Error(responseBody.message || responseBody.error || `Login failed with status ${response.status}`);
+        const responseMessage = typeof responseBody.message === 'string'
+          ? responseBody.message
+          : typeof responseBody.error === 'string'
+            ? responseBody.error
+            : responseBody.error?.message;
+        throw new Error(responseMessage || `Login failed with status ${response.status}`);
       }
 
       if (!responseBody.userExists || !responseBody.passwordCorrect) {

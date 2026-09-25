@@ -32,7 +32,12 @@ const ChangePassword = ({ onBack }) => {
 
       const responseBody = await response.json().catch(() => ({}));
       if (!response.ok) {
-        throw new Error(responseBody.message || responseBody.error || `Password change failed with status ${response.status}`);
+        const responseMessage = typeof responseBody.message === 'string'
+          ? responseBody.message
+          : typeof responseBody.error === 'string'
+            ? responseBody.error
+            : responseBody.error?.message;
+        throw new Error(responseMessage || `Password change failed with status ${response.status}`);
       }
 
       if (!responseBody.passwordChanged) {
