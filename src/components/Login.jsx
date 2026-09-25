@@ -1,3 +1,4 @@
+import { meta } from 'eslint-plugin-react-hooks';
 import { useState } from 'react';
 
 const Login = ({ onLogin, onChangePassword }) => {
@@ -13,7 +14,7 @@ const Login = ({ onLogin, onChangePassword }) => {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          'x-vercel-protection-bypass': process.env.VERCEL_BYPASS_SECRET1 },
+          'x-vercel-protection-bypass': meta.env.VERCEL_BYPASS_SECRET1 },
         body: JSON.stringify(credentials),
       });
 
