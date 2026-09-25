@@ -13,7 +13,7 @@ const Login = ({ onLogin, onChangePassword }) => {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          'KGEC_IT_access': process.env.VERCEL_BYPASS_SECRET1 },
+          'x-vercel-protection-bypass': process.env.VERCEL_BYPASS_SECRET1 },
         body: JSON.stringify(credentials),
       });
 
