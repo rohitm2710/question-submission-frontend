@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { apiHeaders } from '../api.js';
 
 const ChangePassword = ({ onBack }) => {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ const ChangePassword = ({ onBack }) => {
     try {
       const response = await fetch(import.meta.env.VITE_CHANGE_PASSWORD_API_URL || '/api/auth/change-password', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: apiHeaders,
         body: JSON.stringify({
           email: formData.email,
           currentPassword: formData.currentPassword,

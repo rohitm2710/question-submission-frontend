@@ -47,6 +47,8 @@ The frontend uses same-origin paths. Vite proxies them during local development,
 
 No database credentials or private API keys belong in this frontend repository. `.env` is ignored by Git.
 
+For deployments protected by Vercel Authentication, set `VITE_VERCEL_PROTECTION_BYPASS` in the Vercel project environment variables. The frontend sends it as the `x-vercel-protection-bypass` header with each API request. Copy `.env.example` for local development and replace the placeholder with the bypass token.
+
 ## Authentication API
 
 ### Login

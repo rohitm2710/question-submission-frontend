@@ -1,5 +1,5 @@
-import { meta } from 'eslint-plugin-react-hooks';
 import { useState } from 'react';
+import { apiHeaders } from '../api.js';
 
 const Login = ({ onLogin, onChangePassword }) => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -12,9 +12,7 @@ const Login = ({ onLogin, onChangePassword }) => {
     try {
       const response = await fetch(import.meta.env.VITE_AUTH_API_URL || '/api/auth/login', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'x-vercel-protection-bypass': meta.env.VERCEL_BYPASS_SECRET1 },
+        headers: apiHeaders,
         body: JSON.stringify(credentials),
       });
 

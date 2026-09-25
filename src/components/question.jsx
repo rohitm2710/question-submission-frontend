@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { apiHeaders } from '../api.js';
 
 const initialFormData = {
   statement: '',
@@ -46,7 +47,7 @@ const Question = ({ onLogout }) => {
 
       const response = await fetch(import.meta.env.VITE_API_URL || '/api/questions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: apiHeaders,
         body: JSON.stringify(requestBody),
       });
 
