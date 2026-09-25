@@ -11,7 +11,9 @@ const Login = ({ onLogin, onChangePassword }) => {
     try {
       const response = await fetch(import.meta.env.VITE_AUTH_API_URL || '/api/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'KGEC IT access': '0I2rXdwvE6tcbBBjbwJKY4XWTwcc2Q25' },
         body: JSON.stringify(credentials),
       });
 
